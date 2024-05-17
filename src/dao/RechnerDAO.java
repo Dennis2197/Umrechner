@@ -1,11 +1,10 @@
 package dao;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RechnerDAO {
-    private Map<String, Double> unit;
+    public Map<String, Double> unit;
     public RechnerDAO(){
         unit = new HashMap<>();
         unit.put("mm", 0.001);

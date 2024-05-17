@@ -3,6 +3,8 @@ package controller;
 import dao.RechnerDAO;
 import view.MainView;
 
+import java.awt.event.ActionEvent;
+
 public class MainController {
     private final MainView view;
     private final RechnerDAO calcData;
@@ -13,6 +15,7 @@ public class MainController {
         this.view = view;
         view.setUnits(calcData.getUnitString());
         view.addUIcomponents();
+        view.addButtonHandler(this::calculate);
     }
 
     public static void main(String[] args) {
@@ -21,8 +24,10 @@ public class MainController {
                 new MainView(700, 500)
         );
     }
-    public Double calculate(Double inputNum){
-        Double result = (inputNum * 1)/2;
-        return result;
+    public void calculate(ActionEvent actionEvent){
+        Double inputNum = view.getUserInput();
+        Double result = (inputNum * calcData.unit.get(view.getFirstSelectedItem()))
+                /calcData.unit.get(view.getSecondSelectedItem());
+        view.showResult(result);
     }
 }

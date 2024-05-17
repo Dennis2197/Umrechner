@@ -4,9 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
-import dao.RechnerDAO;
 
 public class MainView extends JFrame {
     private JTextField userInput;
@@ -88,7 +86,30 @@ public class MainView extends JFrame {
         button.addActionListener(listener);
     }
 
+    public void addInputComboBoxHandler(ActionListener listener){
+        selectionMenuInput.addActionListener(listener);
+    }
+
+    public void addOutputComboBoxHandler(ActionListener listener){
+        selectionMenuOutput.addActionListener(listener);
+    }
+
+    public void showResult(Double result){
+        JOptionPane.showMessageDialog(this, getUserInput() + "" + getFirstSelectedItem()
+                + " sind umgerechnet " + result + "" + getSecondSelectedItem(), "Ergebnis", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void setUnits(String[] unitArray){
         units = unitArray;
+    }
+    public String getFirstSelectedItem(){
+        return (String)selectionMenuInput.getSelectedItem();
+    }
+    public String getSecondSelectedItem(){
+        return (String)selectionMenuOutput.getSelectedItem();
+    }
+    public Double getUserInput(){
+        String input = userInput.getText();
+        return Double.parseDouble(input);
     }
 }
