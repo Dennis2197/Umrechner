@@ -18,13 +18,14 @@ public class MainController {
         view.addButtonHandler(this::calculate);
     }
     public void calculate(ActionEvent actionEvent){
+        calcData.setUserInput(view.getUserInputText());
         try {
-            Double inputNum = view.getUserInput();
+            Double inputNum = calcData.getUserInput();
             Double result = (inputNum * calcData.unit.get(view.getFirstSelectedItem()))
                     /calcData.unit.get(view.getSecondSelectedItem());
             view.showResult(result);
         } catch (NullPointerException e){
-            return;
+            view.showParseError();
         }
     }
 }

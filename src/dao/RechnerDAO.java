@@ -1,10 +1,12 @@
 package dao;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RechnerDAO {
     public Map<String, Double> unit;
+    public String userInput;
 
     public RechnerDAO() {
         unit = new HashMap<>();
@@ -27,6 +29,18 @@ public class RechnerDAO {
             i++;
         }
         return keys;
+    }
+    public Double getUserInput(){
+        String input = userInput;
+        try{
+            Double inputDouble = Double.parseDouble(input);
+            return inputDouble;
+        } catch (NumberFormatException e){
+            return null;
+        }
+    }
+    public void setUserInput(String userInput){
+        this.userInput = userInput;
     }
 }
 

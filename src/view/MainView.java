@@ -88,8 +88,13 @@ public class MainView extends JFrame {
     }
 
     public void showResult(Double result){
-        JOptionPane.showMessageDialog(this, getUserInput() + "" + getFirstSelectedItem()
+        JOptionPane.showMessageDialog(this, userInput.getText() + "" + getFirstSelectedItem()
                 + " sind umgerechnet " + result + "" + getSecondSelectedItem(), "Ergebnis", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showParseError(){
+        JOptionPane.showMessageDialog(this, "Bitte geben Sie nur Zahlen ein",
+                "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void setUnits(String[] unitArray){
@@ -101,15 +106,7 @@ public class MainView extends JFrame {
     public String getSecondSelectedItem(){
         return (String)selectionMenuOutput.getSelectedItem();
     }
-    public Double getUserInput(){
-        String input = userInput.getText();
-        try{
-            Double inputDouble = Double.parseDouble(input);
-            return inputDouble;
-        } catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "Bitte geben Sie nur Zahlen ein",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return null;
+    public String getUserInputText(){
+        return userInput.getText();
     }
 }
