@@ -17,13 +17,6 @@ public class MainController {
         view.addUIcomponents();
         view.addButtonHandler(this::calculate);
     }
-
-    public static void main(String[] args) {
-        new MainController(
-                new RechnerDAO(),
-                new MainView(700, 500)
-        );
-    }
     public void calculate(ActionEvent actionEvent){
         try {
             Double inputNum = view.getUserInput();

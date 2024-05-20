@@ -19,6 +19,7 @@ public class MainView extends JFrame {
         setTitle("Einheitenumrechner");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+        setLocationRelativeTo(null);
     }
 
     public void addUIcomponents() {
