@@ -5,7 +5,8 @@ import java.util.Map;
 
 public class RechnerDAO {
     public Map<String, Double> unit;
-    public RechnerDAO(){
+
+    public RechnerDAO() {
         unit = new HashMap<>();
         unit.put("mm", 0.001);
         unit.put("cm", 0.01);
@@ -18,14 +19,16 @@ public class RechnerDAO {
         unit.put("Meilen", 1609.34);
     }
 
-    public String[] getUnitString(){
+    public String[] getUnitString() {
         int i = 0;
         String[] keys = new String[unit.size()];
-        for(Map.Entry<String, Double> mapEntry : unit.entrySet()){
+        for (Map.Entry<String, Double> mapEntry : unit.entrySet()) {
             keys[i] = mapEntry.getKey();
             i++;
         }
         return keys;
     }
 }
+
+
 

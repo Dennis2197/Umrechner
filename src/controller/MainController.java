@@ -25,9 +25,13 @@ public class MainController {
         );
     }
     public void calculate(ActionEvent actionEvent){
-        Double inputNum = view.getUserInput();
-        Double result = (inputNum * calcData.unit.get(view.getFirstSelectedItem()))
-                /calcData.unit.get(view.getSecondSelectedItem());
-        view.showResult(result);
+        try {
+            Double inputNum = view.getUserInput();
+            Double result = (inputNum * calcData.unit.get(view.getFirstSelectedItem()))
+                    /calcData.unit.get(view.getSecondSelectedItem());
+            view.showResult(result);
+        } catch (NullPointerException e){
+            return;
+        }
     }
 }

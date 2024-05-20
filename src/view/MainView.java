@@ -86,14 +86,6 @@ public class MainView extends JFrame {
         button.addActionListener(listener);
     }
 
-    public void addInputComboBoxHandler(ActionListener listener){
-        selectionMenuInput.addActionListener(listener);
-    }
-
-    public void addOutputComboBoxHandler(ActionListener listener){
-        selectionMenuOutput.addActionListener(listener);
-    }
-
     public void showResult(Double result){
         JOptionPane.showMessageDialog(this, getUserInput() + "" + getFirstSelectedItem()
                 + " sind umgerechnet " + result + "" + getSecondSelectedItem(), "Ergebnis", JOptionPane.INFORMATION_MESSAGE);
@@ -110,6 +102,13 @@ public class MainView extends JFrame {
     }
     public Double getUserInput(){
         String input = userInput.getText();
-        return Double.parseDouble(input);
+        try{
+            Double inputDouble = Double.parseDouble(input);
+            return inputDouble;
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Bitte geben Sie nur Zahlen ein",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
     }
 }
