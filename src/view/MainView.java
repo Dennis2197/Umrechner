@@ -3,16 +3,19 @@ package view;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 
 public class MainView extends JFrame {
     private JTextField userInput;
     private JComboBox<String> selectionMenuInput;
     private JComboBox<String> selectionMenuOutput;
-
+    private JComboBox<String> typeMenuBox;
     private JButton button;
-    private String[] units;
+    private String[] lengthUnit;
+    private String[] weightUnit;
+    private String[] type = {"Längeneinheiten", "Gewichteinheiten"};
+    private JPanel centerPanel;
 
     public MainView(int width, int height) {
         setSize(width, height);
@@ -24,7 +27,7 @@ public class MainView extends JFrame {
 
     public void addUIcomponents() {
         JPanel topPanel = new JPanel();
-        JPanel centerPanel = new JPanel();
+        centerPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
 
         add(topPanel, BorderLayout.NORTH);
@@ -32,7 +35,7 @@ public class MainView extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
 
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBorder(new EmptyBorder(10, 50, 5, 50));
+        centerPanel.setBorder(new EmptyBorder(10, 50, 10, 50));
 
         centerPanel.add(Box.createVerticalGlue());
 
@@ -51,7 +54,20 @@ public class MainView extends JFrame {
         userInput.setAlignmentX(Component.CENTER_ALIGNMENT);
         centerPanel.add(userInput);
 
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        JLabel typeMenuLabel = new JLabel("Wählen Sie den Typ der Einheit aus");
+        typeMenuLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerPanel.add(typeMenuLabel);
+
         centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        typeMenuBox = new JComboBox<>(type);
+        typeMenuBox.setMaximumSize(new Dimension(200, 25));
+        typeMenuBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerPanel.add(typeMenuBox);
+
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JLabel comboBoxInfoLabel = new JLabel("Wählen Sie die Ausgangseinheit");
         comboBoxInfoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -59,12 +75,12 @@ public class MainView extends JFrame {
 
         centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        selectionMenuInput = new JComboBox<>(units);
+        selectionMenuInput = new JComboBox<>(lengthUnit);
         selectionMenuInput.setMaximumSize(new Dimension(200, 25));
         selectionMenuInput.setAlignmentX(Component.CENTER_ALIGNMENT);
         centerPanel.add(selectionMenuInput);
 
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JLabel outputComboBoxInfoLabel = new JLabel("Wählen Sie die gewünschte Einheit");
         outputComboBoxInfoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -72,15 +88,16 @@ public class MainView extends JFrame {
 
         centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        selectionMenuOutput = new JComboBox<>(units);
+        selectionMenuOutput = new JComboBox<>(lengthUnit);
         selectionMenuOutput.setMaximumSize(new Dimension(200, 25));
         selectionMenuOutput.setAlignmentX(Component.CENTER_ALIGNMENT);
         centerPanel.add(selectionMenuOutput);
 
-        centerPanel.add(Box.createVerticalGlue());
 
         button = new JButton("Umrechnen");
         bottomPanel.add(button);
+
+        centerPanel.add(Box.createVerticalGlue());
     }
 
     public void addButtonHandler(ActionListener listener){
@@ -97,8 +114,11 @@ public class MainView extends JFrame {
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void setUnits(String[] unitArray){
-        units = unitArray;
+    public void setlengthUnit(String[] lengthUnit){
+        this.lengthUnit = lengthUnit;
+    }
+    public void setWeightUnit(String[] weightUnit){
+        this.weightUnit = weightUnit;
     }
     public String getFirstSelectedItem(){
         return (String)selectionMenuInput.getSelectedItem();
@@ -108,5 +128,28 @@ public class MainView extends JFrame {
     }
     public String getUserInputText(){
         return userInput.getText();
+    }
+    public ComboBoxModel<String> getTypeMenuBoxModel(){
+        return typeMenuBox.getModel();
+    }
+    public int getSelectedTypeIndex(){
+        return typeMenuBox.getSelectedIndex();
+    }
+    public void switchMenuContents(String[] units){
+        selectionMenuInput.setModel(new DefaultComboBoxModel<>(units));
+        selectionMenuOutput.setModel(new DefaultComboBoxModel<>(units));
+    }
+    public void addTypeMenuListener(){
+        typeMenuBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selection = typeMenuBox.getSelectedIndex();
+                if(selection == 0){
+                    switchMenuContents(lengthUnit);
+                } else if (selection == 1) {
+                    switchMenuContents(weightUnit);
+                }
+            }
+        });
     }
 }
